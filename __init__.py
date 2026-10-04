@@ -1,9 +1,13 @@
-"""Loading of design documents, standards and incident reports."""
-from aegis_rmf.ingestion.design_docs import DesignCorpus, DocUnit, load_design_corpus
-from aegis_rmf.ingestion.incidents import IncidentRecord, load_incidents
-from aegis_rmf.ingestion.standards import StandardClause, load_standards
+"""Traceability matrix, standards coverage and gap analysis built from the knowledge graph."""
+from aegis_rmf.traceability.gaps import Gap, find_gaps
+from aegis_rmf.traceability.matrix import (
+    ClauseCoverage,
+    TraceRow,
+    build_matrix,
+    standards_coverage,
+    verify_bidirectional,
+)
 
 __all__ = [
-    "DesignCorpus", "DocUnit", "IncidentRecord", "StandardClause",
-    "load_design_corpus", "load_incidents", "load_standards",
+    "ClauseCoverage", "Gap", "TraceRow", "build_matrix", "find_gaps", "standards_coverage", "verify_bidirectional",
 ]
