@@ -1,0 +1,520 @@
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+new file mode 100644
+index 0000000..70f6764
+--- /dev/null
++++ b/.github/workflows/ci.yml
+@@ -0,0 +1,22 @@
++name: CI
++
++on:
++  push:
++    branches: [main]
++  pull_request:
++
++jobs:
++  test:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.12"
++          cache: pip
++      - name: Install
++        run: |
++          python -m pip install --upgrade pip
++          pip install -e ".[dev]"
++      - name: Test
++        run: pytest
+diff --git a/README.md b/README.md
+index 61578f7..f603052 100644
+--- a/README.md
++++ b/README.md
+@@ -4,7 +4,7 @@
+ 
+ An end to end retrieval augmented system that reads medical device design documents, builds an FMEA knowledge graph, scores every risk before and after mitigation with deterministic policy lookups, grounds probability estimates in historical incident data, and generates a fully traceable ISO 14971 risk management file.
+ 
+-![Architecture](architecture.png)
++![Architecture](docs/images/architecture.png)
+ 
+ ## Project brief
+ 
+@@ -26,7 +26,7 @@ The sample device was written with realistic defects in its documentation. The f
+ 
+ Thirty nine risks were extracted and scored. Before risk control 4 were acceptable, 28 needed review and 7 were unacceptable. After verified controls were credited, 23 are acceptable, 15 need review and 1 is unacceptable. The total risk priority number falls from 1919 to 703.
+ 
+-![Risk matrix before and after](risk_matrix_before_after.png)
++![Risk matrix before and after](docs/images/risk_matrix_before_after.png)
+ 
+ The matrix shows where the residual risk sits. Eleven risks remain in the top left cell: catastrophic severity at the lowest probability. No control can move them further, because the policy never treats a risk of death as acceptable on probability alone. For an insulin pump this is the expected shape of the file, and it tells the clinical team exactly which eleven risks the benefit risk analysis under clause 7.4 has to address.
+ 
+@@ -34,7 +34,7 @@ The matrix shows where the residual risk sits. Eleven risks remain in the top le
+ 
+ The verification summary records that the regression test for requirement REQ_SW_005 failed. The engine walks the graph backward from that test record to the control it supports, the risk that control mitigates and the component responsible.
+ 
+-![Knowledge graph trace](knowledge_graph_trace.png)
++![Knowledge graph trace](docs/images/knowledge_graph_trace.png)
+ 
+ Because the control RCM_SW_03 is implemented by two requirements and only one passed, the control earns no credit. RISK_SW_02 (insulin on board not subtracted from a correction bolus) stays at a risk priority number of 80 in the UNACCEPTABLE region and the disposition is that design release is blocked. In a spreadsheet this control would very likely have been credited, because the row for the control and the row for the test result sit in different files owned by different teams.
+ 
+@@ -44,7 +44,7 @@ Two further controls are denied credit for the same reason: one whose verificati
+ 
+ For every scenario the agent searches the incident corpus and converts the number of similar reports into a rate and then into a probability rating. Where the field rating is higher than the engineering estimate, the field rating is used.
+ 
+-![Field evidence](field_evidence.png)
++![Field evidence](docs/images/field_evidence.png)
+ 
+ * Infusion set connector detachment was estimated as Occasional. 695 similar reports imply Probable. With the engineering estimate, the two controls would have brought the residual risk into the acceptable region. With the field rating, it remains in REVIEW.
+ * A bolus command executed twice was estimated as Remote. 52 similar reports imply Occasional, and again the residual risk moves from acceptable to REVIEW.
+@@ -80,14 +80,14 @@ The graph layer has two interchangeable backends behind one interface: Neo4j for
+ 
+ The agent runs a fixed plan for each scenario: resolve the component, resolve the harm in the catalogue (which fixes severity), rate detectability and engineering probability from policy terms, search incidents, select the higher probability, score, check the verification status of each control, credit controls, score again and decide the disposition. Every step is written to an audit trail that is stored with the record.
+ 
+-![Risk priority number before and after](rpn_before_after.png)
++![Risk priority number before and after](docs/images/rpn_before_after.png)
+ 
+ Two decisions are kept apart on purpose.
+ 
+ * **Acceptability** uses severity and probability only, because that is how ISO 14971 defines risk. Detectability cannot make an unacceptable risk acceptable.
+ * **Prioritisation** uses all three ratings. The risk priority number is S x P x D, and a three dimensional lookup of 125 cells assigns an action priority, which avoids the well known problem that very different risks can share one risk priority number.
+ 
+-![Action priority lookup](action_priority_cube.png)
++![Action priority lookup](docs/images/action_priority_cube.png)
+ 
+ Control credit follows five rules that are enforced in code: no credit without passing verification, credit in the clause 7.1 priority order, limits by control type, a shared limit for information for safety, and limits by dimension. The full method with a worked example is in [docs/risk_methodology.md](docs/risk_methodology.md).
+ 
+@@ -95,7 +95,7 @@ Control credit follows five rules that are enforced in code: no credit without p
+ 
+ The matrix is produced by walking the graph, one row per risk item with 36 columns. Each row carries exact cross references in both regulatory directions: design specification references such as `SRS_003 section 4.1 (DFD_SW_02)` and `REQ_SW_005 at SRS_003 section 4.1`, and standard clauses references such as `ISO 14971 cl 7.2` and `IEC 62304 cl 7.4`.
+ 
+-![Traceability matrix extract](traceability_matrix_preview.png)
++![Traceability matrix extract](docs/images/traceability_matrix_preview.png)
+ 
+ After the matrix is built, every link from component to requirement and verification record is walked forward and then backward. On the sample device 113 links were checked and none was broken.
+ 
+diff --git a/harm_catalogue.yaml b/configs/harm_catalogue.yaml
+similarity index 100%
+rename from harm_catalogue.yaml
+rename to configs/harm_catalogue.yaml
+diff --git a/risk_policy.yaml b/configs/risk_policy.yaml
+similarity index 100%
+rename from risk_policy.yaml
+rename to configs/risk_policy.yaml
+diff --git a/settings.yaml b/configs/settings.yaml
+similarity index 100%
+rename from settings.yaml
+rename to configs/settings.yaml
+diff --git a/standards_catalogue.yaml b/configs/standards_catalogue.yaml
+similarity index 100%
+rename from standards_catalogue.yaml
+rename to configs/standards_catalogue.yaml
+diff --git a/HDS_002_hardware_design_specification.md b/data/design_docs/HDS_002_hardware_design_specification.md
+similarity index 100%
+rename from HDS_002_hardware_design_specification.md
+rename to data/design_docs/HDS_002_hardware_design_specification.md
+diff --git a/RMP_006_risk_management_plan.md b/data/design_docs/RMP_006_risk_management_plan.md
+similarity index 100%
+rename from RMP_006_risk_management_plan.md
+rename to data/design_docs/RMP_006_risk_management_plan.md
+diff --git a/SAS_001_system_architecture_specification.md b/data/design_docs/SAS_001_system_architecture_specification.md
+similarity index 100%
+rename from SAS_001_system_architecture_specification.md
+rename to data/design_docs/SAS_001_system_architecture_specification.md
+diff --git a/SRS_003_software_requirements_specification.md b/data/design_docs/SRS_003_software_requirements_specification.md
+similarity index 100%
+rename from SRS_003_software_requirements_specification.md
+rename to data/design_docs/SRS_003_software_requirements_specification.md
+diff --git a/UCS_004_usability_and_connectivity_specification.md b/data/design_docs/UCS_004_usability_and_connectivity_specification.md
+similarity index 100%
+rename from UCS_004_usability_and_connectivity_specification.md
+rename to data/design_docs/UCS_004_usability_and_connectivity_specification.md
+diff --git a/VVR_005_verification_and_validation_summary.md b/data/design_docs/VVR_005_verification_and_validation_summary.md
+similarity index 100%
+rename from VVR_005_verification_and_validation_summary.md
+rename to data/design_docs/VVR_005_verification_and_validation_summary.md
+diff --git a/golden_questions.jsonl b/data/evaluation/golden_questions.jsonl
+similarity index 100%
+rename from golden_questions.jsonl
+rename to data/evaluation/golden_questions.jsonl
+diff --git a/incident_relevance.json b/data/evaluation/incident_relevance.json
+similarity index 100%
+rename from incident_relevance.json
+rename to data/evaluation/incident_relevance.json
+diff --git a/DATA_CARD.md b/data/incidents/DATA_CARD.md
+similarity index 100%
+rename from DATA_CARD.md
+rename to data/incidents/DATA_CARD.md
+diff --git a/synthetic_adverse_events.jsonl b/data/incidents/synthetic_adverse_events.jsonl
+similarity index 100%
+rename from synthetic_adverse_events.jsonl
+rename to data/incidents/synthetic_adverse_events.jsonl
+diff --git a/api_reference.md b/docs/api_reference.md
+similarity index 100%
+rename from api_reference.md
+rename to docs/api_reference.md
+diff --git a/architecture.md b/docs/architecture.md
+similarity index 100%
+rename from architecture.md
+rename to docs/architecture.md
+diff --git a/action_priority_cube.png b/docs/images/action_priority_cube.png
+similarity index 100%
+rename from action_priority_cube.png
+rename to docs/images/action_priority_cube.png
+diff --git a/architecture.png b/docs/images/architecture.png
+similarity index 100%
+rename from architecture.png
+rename to docs/images/architecture.png
+diff --git a/field_evidence.png b/docs/images/field_evidence.png
+similarity index 100%
+rename from field_evidence.png
+rename to docs/images/field_evidence.png
+diff --git a/knowledge_graph_trace.png b/docs/images/knowledge_graph_trace.png
+similarity index 100%
+rename from knowledge_graph_trace.png
+rename to docs/images/knowledge_graph_trace.png
+diff --git a/risk_matrix_before_after.png b/docs/images/risk_matrix_before_after.png
+similarity index 100%
+rename from risk_matrix_before_after.png
+rename to docs/images/risk_matrix_before_after.png
+diff --git a/rpn_before_after.png b/docs/images/rpn_before_after.png
+similarity index 100%
+rename from rpn_before_after.png
+rename to docs/images/rpn_before_after.png
+diff --git a/traceability_matrix_preview.png b/docs/images/traceability_matrix_preview.png
+similarity index 100%
+rename from traceability_matrix_preview.png
+rename to docs/images/traceability_matrix_preview.png
+diff --git a/risk_methodology.md b/docs/risk_methodology.md
+similarity index 100%
+rename from risk_methodology.md
+rename to docs/risk_methodology.md
+diff --git a/evaluation_report.json b/outputs/evaluation/evaluation_report.json
+similarity index 100%
+rename from evaluation_report.json
+rename to outputs/evaluation/evaluation_report.json
+diff --git a/gap_report.csv b/outputs/risk_management_file/gap_report.csv
+similarity index 100%
+rename from gap_report.csv
+rename to outputs/risk_management_file/gap_report.csv
+diff --git a/risk_management_summary.md b/outputs/risk_management_file/risk_management_summary.md
+similarity index 100%
+rename from risk_management_summary.md
+rename to outputs/risk_management_file/risk_management_summary.md
+diff --git a/risk_register.json b/outputs/risk_management_file/risk_register.json
+similarity index 100%
+rename from risk_register.json
+rename to outputs/risk_management_file/risk_register.json
+diff --git a/standards_coverage.csv b/outputs/risk_management_file/standards_coverage.csv
+similarity index 100%
+rename from standards_coverage.csv
+rename to outputs/risk_management_file/standards_coverage.csv
+diff --git a/traceability_matrix.csv b/outputs/risk_management_file/traceability_matrix.csv
+similarity index 100%
+rename from traceability_matrix.csv
+rename to outputs/risk_management_file/traceability_matrix.csv
+diff --git a/traceability_matrix.html b/outputs/risk_management_file/traceability_matrix.html
+similarity index 100%
+rename from traceability_matrix.html
+rename to outputs/risk_management_file/traceability_matrix.html
+diff --git a/traceability_matrix.xlsx b/outputs/risk_management_file/traceability_matrix.xlsx
+similarity index 100%
+rename from traceability_matrix.xlsx
+rename to outputs/risk_management_file/traceability_matrix.xlsx
+diff --git a/run_manifest.json b/outputs/run_manifest.json
+similarity index 100%
+rename from run_manifest.json
+rename to outputs/run_manifest.json
+diff --git a/fetch_openfda_maude.py b/scripts/fetch_openfda_maude.py
+similarity index 100%
+rename from fetch_openfda_maude.py
+rename to scripts/fetch_openfda_maude.py
+diff --git a/generate_incident_corpus.py b/scripts/generate_incident_corpus.py
+similarity index 100%
+rename from generate_incident_corpus.py
+rename to scripts/generate_incident_corpus.py
+diff --git a/src/aegis_rmf/__init__.py b/src/aegis_rmf/__init__.py
+new file mode 100644
+index 0000000..b524188
+--- /dev/null
++++ b/src/aegis_rmf/__init__.py
+@@ -0,0 +1,3 @@
++"""Aegis RMF AI: automated ISO 14971 risk analysis."""
++
++__version__ = "1.0.0"
+diff --git a/src/aegis_rmf/agents/__init__.py b/src/aegis_rmf/agents/__init__.py
+new file mode 100644
+index 0000000..9f0b765
+--- /dev/null
++++ b/src/aegis_rmf/agents/__init__.py
+@@ -0,0 +1,3 @@
++from .risk_scoring_agent import RiskScoringAgent
++
++__all__ = ['RiskScoringAgent']
+diff --git a/risk_scoring_agent.py b/src/aegis_rmf/agents/risk_scoring_agent.py
+similarity index 100%
+rename from risk_scoring_agent.py
+rename to src/aegis_rmf/agents/risk_scoring_agent.py
+diff --git a/src/aegis_rmf/api/__init__.py b/src/aegis_rmf/api/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/main.py b/src/aegis_rmf/api/main.py
+similarity index 100%
+rename from main.py
+rename to src/aegis_rmf/api/main.py
+diff --git a/schemas.py b/src/aegis_rmf/api/schemas.py
+similarity index 100%
+rename from schemas.py
+rename to src/aegis_rmf/api/schemas.py
+diff --git a/cli.py b/src/aegis_rmf/cli.py
+similarity index 100%
+rename from cli.py
+rename to src/aegis_rmf/cli.py
+diff --git a/domain.py b/src/aegis_rmf/domain.py
+similarity index 100%
+rename from domain.py
+rename to src/aegis_rmf/domain.py
+diff --git a/src/aegis_rmf/evaluation/__init__.py b/src/aegis_rmf/evaluation/__init__.py
+new file mode 100644
+index 0000000..13087e6
+--- /dev/null
++++ b/src/aegis_rmf/evaluation/__init__.py
+@@ -0,0 +1,3 @@
++from .retrieval_metrics import evaluate_incident_matching, evaluate_retrieval, load_golden
++
++__all__ = ['evaluate_incident_matching', 'evaluate_retrieval', 'load_golden']
+diff --git a/ragas_runner.py b/src/aegis_rmf/evaluation/ragas_runner.py
+similarity index 100%
+rename from ragas_runner.py
+rename to src/aegis_rmf/evaluation/ragas_runner.py
+diff --git a/retrieval_metrics.py b/src/aegis_rmf/evaluation/retrieval_metrics.py
+similarity index 100%
+rename from retrieval_metrics.py
+rename to src/aegis_rmf/evaluation/retrieval_metrics.py
+diff --git a/src/aegis_rmf/extraction/__init__.py b/src/aegis_rmf/extraction/__init__.py
+new file mode 100644
+index 0000000..350a701
+--- /dev/null
++++ b/src/aegis_rmf/extraction/__init__.py
+@@ -0,0 +1,3 @@
++from .rule_extractor import ExtractionIssue, extract_scenarios
++
++__all__ = ['ExtractionIssue', 'extract_scenarios']
+diff --git a/llm.py b/src/aegis_rmf/extraction/llm.py
+similarity index 100%
+rename from llm.py
+rename to src/aegis_rmf/extraction/llm.py
+diff --git a/llm_extractor.py b/src/aegis_rmf/extraction/llm_extractor.py
+similarity index 100%
+rename from llm_extractor.py
+rename to src/aegis_rmf/extraction/llm_extractor.py
+diff --git a/rule_extractor.py b/src/aegis_rmf/extraction/rule_extractor.py
+similarity index 100%
+rename from rule_extractor.py
+rename to src/aegis_rmf/extraction/rule_extractor.py
+diff --git a/src/aegis_rmf/graph/__init__.py b/src/aegis_rmf/graph/__init__.py
+new file mode 100644
+index 0000000..cc5e54c
+--- /dev/null
++++ b/src/aegis_rmf/graph/__init__.py
+@@ -0,0 +1,23 @@
++"""Knowledge graph: the store contract, the memory and Neo4j backends, and the builder."""
++from aegis_rmf.graph.base import GraphStore
++from aegis_rmf.graph.builder import build_graph
++from aegis_rmf.graph.memory_store import MemoryGraphStore
++
++
++def build_store(settings) -> GraphStore:
++    """Create the graph store named by ``settings.graph_backend``.
++
++    The Neo4j backend is imported lazily so the offline memory backend works
++    without a running server.
++    """
++    backend = str(settings.graph_backend).lower()
++    if backend == "memory":
++        return MemoryGraphStore()
++    if backend == "neo4j":
++        from aegis_rmf.graph.neo4j_store import Neo4jGraphStore
++
++        return Neo4jGraphStore(settings.neo4j_uri, settings.neo4j_user, settings.neo4j_password, settings.neo4j_database)
++    raise ValueError(f"Unknown graph backend '{settings.graph_backend}'. Use memory or neo4j.")
++
++
++__all__ = ["GraphStore", "MemoryGraphStore", "build_graph", "build_store"]
+diff --git a/base.py b/src/aegis_rmf/graph/base.py
+similarity index 100%
+rename from base.py
+rename to src/aegis_rmf/graph/base.py
+diff --git a/builder.py b/src/aegis_rmf/graph/builder.py
+similarity index 100%
+rename from builder.py
+rename to src/aegis_rmf/graph/builder.py
+diff --git a/schema.cypher b/src/aegis_rmf/graph/cypher/schema.cypher
+similarity index 100%
+rename from schema.cypher
+rename to src/aegis_rmf/graph/cypher/schema.cypher
+diff --git a/traceability_queries.cypher b/src/aegis_rmf/graph/cypher/traceability_queries.cypher
+similarity index 100%
+rename from traceability_queries.cypher
+rename to src/aegis_rmf/graph/cypher/traceability_queries.cypher
+diff --git a/memory_store.py b/src/aegis_rmf/graph/memory_store.py
+similarity index 100%
+rename from memory_store.py
+rename to src/aegis_rmf/graph/memory_store.py
+diff --git a/neo4j_store.py b/src/aegis_rmf/graph/neo4j_store.py
+similarity index 100%
+rename from neo4j_store.py
+rename to src/aegis_rmf/graph/neo4j_store.py
+diff --git a/src/aegis_rmf/ingestion/__init__.py b/src/aegis_rmf/ingestion/__init__.py
+new file mode 100644
+index 0000000..10a8db0
+--- /dev/null
++++ b/src/aegis_rmf/ingestion/__init__.py
+@@ -0,0 +1,5 @@
++from .design_docs import DesignCorpus, load_design_corpus
++from .incidents import IncidentRecord, load_incidents
++from .standards import StandardClause, load_standards
++
++__all__ = ['DesignCorpus', 'load_design_corpus', 'IncidentRecord', 'load_incidents', 'StandardClause', 'load_standards']
+diff --git a/design_docs.py b/src/aegis_rmf/ingestion/design_docs.py
+similarity index 100%
+rename from design_docs.py
+rename to src/aegis_rmf/ingestion/design_docs.py
+diff --git a/incidents.py b/src/aegis_rmf/ingestion/incidents.py
+similarity index 100%
+rename from incidents.py
+rename to src/aegis_rmf/ingestion/incidents.py
+diff --git a/openfda.py b/src/aegis_rmf/ingestion/openfda.py
+similarity index 100%
+rename from openfda.py
+rename to src/aegis_rmf/ingestion/openfda.py
+diff --git a/standards.py b/src/aegis_rmf/ingestion/standards.py
+similarity index 100%
+rename from standards.py
+rename to src/aegis_rmf/ingestion/standards.py
+diff --git a/pipeline.py b/src/aegis_rmf/pipeline.py
+similarity index 100%
+rename from pipeline.py
+rename to src/aegis_rmf/pipeline.py
+diff --git a/src/aegis_rmf/rag/__init__.py b/src/aegis_rmf/rag/__init__.py
+new file mode 100644
+index 0000000..fc829cd
+--- /dev/null
++++ b/src/aegis_rmf/rag/__init__.py
+@@ -0,0 +1,3 @@
++from .engine import Answer, RagEngine
++
++__all__ = ['Answer', 'RagEngine']
+diff --git a/engine.py b/src/aegis_rmf/rag/engine.py
+similarity index 100%
+rename from engine.py
+rename to src/aegis_rmf/rag/engine.py
+diff --git a/src/aegis_rmf/reporting/__init__.py b/src/aegis_rmf/reporting/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/figures.py b/src/aegis_rmf/reporting/figures.py
+similarity index 100%
+rename from figures.py
+rename to src/aegis_rmf/reporting/figures.py
+diff --git a/summary.py b/src/aegis_rmf/reporting/summary.py
+similarity index 100%
+rename from summary.py
+rename to src/aegis_rmf/reporting/summary.py
+diff --git a/src/aegis_rmf/retrieval/__init__.py b/src/aegis_rmf/retrieval/__init__.py
+new file mode 100644
+index 0000000..661b231
+--- /dev/null
++++ b/src/aegis_rmf/retrieval/__init__.py
+@@ -0,0 +1,3 @@
++from .knowledge_base import KnowledgeBase
++
++__all__ = ['KnowledgeBase']
+diff --git a/embeddings.py b/src/aegis_rmf/retrieval/embeddings.py
+similarity index 100%
+rename from embeddings.py
+rename to src/aegis_rmf/retrieval/embeddings.py
+diff --git a/knowledge_base.py b/src/aegis_rmf/retrieval/knowledge_base.py
+similarity index 100%
+rename from knowledge_base.py
+rename to src/aegis_rmf/retrieval/knowledge_base.py
+diff --git a/src/aegis_rmf/risk/__init__.py b/src/aegis_rmf/risk/__init__.py
+new file mode 100644
+index 0000000..495f160
+--- /dev/null
++++ b/src/aegis_rmf/risk/__init__.py
+@@ -0,0 +1,4 @@
++from .policy import HarmCatalogue, RiskPolicy, load_harm_catalogue, load_policy
++from .scoring import score
++
++__all__ = ['HarmCatalogue', 'RiskPolicy', 'load_harm_catalogue', 'load_policy', 'score']
+diff --git a/policy.py b/src/aegis_rmf/risk/policy.py
+similarity index 100%
+rename from policy.py
+rename to src/aegis_rmf/risk/policy.py
+diff --git a/scoring.py b/src/aegis_rmf/risk/scoring.py
+similarity index 100%
+rename from scoring.py
+rename to src/aegis_rmf/risk/scoring.py
+diff --git a/settings.py b/src/aegis_rmf/settings.py
+similarity index 100%
+rename from settings.py
+rename to src/aegis_rmf/settings.py
+diff --git a/__init__.py b/src/aegis_rmf/traceability/__init__.py
+similarity index 100%
+rename from __init__.py
+rename to src/aegis_rmf/traceability/__init__.py
+diff --git a/exporters.py b/src/aegis_rmf/traceability/exporters.py
+similarity index 100%
+rename from exporters.py
+rename to src/aegis_rmf/traceability/exporters.py
+diff --git a/gaps.py b/src/aegis_rmf/traceability/gaps.py
+similarity index 100%
+rename from gaps.py
+rename to src/aegis_rmf/traceability/gaps.py
+diff --git a/matrix.py b/src/aegis_rmf/traceability/matrix.py
+similarity index 100%
+rename from matrix.py
+rename to src/aegis_rmf/traceability/matrix.py
+diff --git a/conftest.py b/tests/conftest.py
+similarity index 100%
+rename from conftest.py
+rename to tests/conftest.py
+diff --git a/test_agent.py b/tests/test_agent.py
+similarity index 100%
+rename from test_agent.py
+rename to tests/test_agent.py
+diff --git a/test_api_and_cli.py b/tests/test_api_and_cli.py
+similarity index 100%
+rename from test_api_and_cli.py
+rename to tests/test_api_and_cli.py
+diff --git a/test_extraction.py b/tests/test_extraction.py
+similarity index 100%
+rename from test_extraction.py
+rename to tests/test_extraction.py
+diff --git a/test_graph.py b/tests/test_graph.py
+similarity index 100%
+rename from test_graph.py
+rename to tests/test_graph.py
+diff --git a/test_ingestion.py b/tests/test_ingestion.py
+similarity index 100%
+rename from test_ingestion.py
+rename to tests/test_ingestion.py
+diff --git a/test_policy.py b/tests/test_policy.py
+similarity index 100%
+rename from test_policy.py
+rename to tests/test_policy.py
+diff --git a/test_rag_and_evaluation.py b/tests/test_rag_and_evaluation.py
+similarity index 100%
+rename from test_rag_and_evaluation.py
+rename to tests/test_rag_and_evaluation.py
+diff --git a/test_retrieval.py b/tests/test_retrieval.py
+similarity index 100%
+rename from test_retrieval.py
+rename to tests/test_retrieval.py
+diff --git a/test_scoring.py b/tests/test_scoring.py
+similarity index 100%
+rename from test_scoring.py
+rename to tests/test_scoring.py
+diff --git a/test_traceability.py b/tests/test_traceability.py
+similarity index 100%
+rename from test_traceability.py
+rename to tests/test_traceability.py
