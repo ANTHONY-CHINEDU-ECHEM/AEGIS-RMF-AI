@@ -4,7 +4,7 @@
 
 An end to end retrieval augmented system that reads medical device design documents, builds an FMEA knowledge graph, scores every risk before and after mitigation with deterministic policy lookups, grounds probability estimates in historical incident data, and generates a fully traceable ISO 14971 risk management file.
 
-![Architecture](docs/images/architecture.png)
+![Architecture](architecture.png)
 
 ## Project brief
 
@@ -16,7 +16,7 @@ Standard retrieval augmented generation does not solve this, and it can make it 
 
 Aegis RMF AI separates the two kinds of work. Retrieval is used where similarity is the right tool: finding historical incidents that resemble a failure scenario and finding the evidence that answers a question. Everything that must be exact is done by a knowledge graph and by deterministic code: the chain from component to failure mode to hazardous situation to harm to control, the severity, probability and detectability ratings, the risk priority number, the acceptability decision and the traceability matrix. A language model is optional. When present it proposes scenarios for human review and writes answers from retrieved evidence. It is never asked for a number.
 
-The repository ships with a complete worked example: six design documents for a fictional insulin infusion pump, a synthetic corpus of 10024 adverse event reports, a risk policy, a harm catalogue and a clause catalogue covering six standards. One command turns these inputs into the risk management file described below.
+The repository ships with a complete worked example: six design documents for a fictional insulin infusion pump, a synthetic corpus of 10024 adverse event reports, a risk policy, a harm catalogue and a clause catalogue covering six standards. On one command turns these inputs into the risk management file described below.
 
 ## What the engine found
 
@@ -26,7 +26,7 @@ The sample device was written with realistic defects in its documentation. The f
 
 Thirty nine risks were extracted and scored. Before risk control 4 were acceptable, 28 needed review and 7 were unacceptable. After verified controls were credited, 23 are acceptable, 15 need review and 1 is unacceptable. The total risk priority number falls from 1919 to 703.
 
-![Risk matrix before and after](docs/images/risk_matrix_before_after.png)
+![Risk matrix before and after](risk_matrix_before_after.png)
 
 The matrix shows where the residual risk sits. Eleven risks remain in the top left cell: catastrophic severity at the lowest probability. No control can move them further, because the policy never treats a risk of death as acceptable on probability alone. For an insulin pump this is the expected shape of the file, and it tells the clinical team exactly which eleven risks the benefit risk analysis under clause 7.4 has to address.
 
@@ -34,7 +34,7 @@ The matrix shows where the residual risk sits. Eleven risks remain in the top le
 
 The verification summary records that the regression test for requirement REQ_SW_005 failed. The engine walks the graph backward from that test record to the control it supports, the risk that control mitigates and the component responsible.
 
-![Knowledge graph trace](docs/images/knowledge_graph_trace.png)
+![Knowledge graph trace](knowledge_graph_trace.png)
 
 Because the control RCM_SW_03 is implemented by two requirements and only one passed, the control earns no credit. RISK_SW_02 (insulin on board not subtracted from a correction bolus) stays at a risk priority number of 80 in the UNACCEPTABLE region and the disposition is that design release is blocked. In a spreadsheet this control would very likely have been credited, because the row for the control and the row for the test result sit in different files owned by different teams.
 
@@ -44,7 +44,7 @@ Two further controls are denied credit for the same reason: one whose verificati
 
 For every scenario the agent searches the incident corpus and converts the number of similar reports into a rate and then into a probability rating. Where the field rating is higher than the engineering estimate, the field rating is used.
 
-![Field evidence](docs/images/field_evidence.png)
+![Field evidence](field_evidence.png)
 
 * Infusion set connector detachment was estimated as Occasional. 695 similar reports imply Probable. With the engineering estimate, the two controls would have brought the residual risk into the acceptable region. With the field rating, it remains in REVIEW.
 * A bolus command executed twice was estimated as Remote. 52 similar reports imply Occasional, and again the residual risk moves from acceptable to REVIEW.
@@ -70,7 +70,7 @@ The standards coverage check adds one more insight. Of the 46 clauses in the cat
 
 ### FMEA knowledge graph
 
-The device is modelled as a property graph with twelve node labels and fifteen relationship types. The core chain follows the blueprint: Component, FailureMode, HazardousSituation, Harm, ControlMeasure. Requirements, verification records, standard clauses, document sections and incident reports are attached so that one traversal answers an audit question. The sample device produces 638 nodes and 1194 relationships.
+The device is modelled as a property graph with twelve node labels and fifteen relationship types. The core chain follows the blueprint: Component, FailureMode, HazardousSituation, Harm, ControlMeasure. Requirements, verification records, standards clauses, document sections and incident reports are attached so that one traversal answers an audit question. The sample device produces 6338 nodes and 1194 relationships.
 
 One modelling decision goes beyond the blueprint. Harms are shared between scenarios (nine harms serve thirty nine scenarios), so attaching controls directly to a harm would let a trace from one component reach controls that belong to another. Controls and scores are therefore attached to a RiskItem node, which represents one row of the hazard analysis. The reasoning is set out in [docs/architecture.md](docs/architecture.md).
 
@@ -80,22 +80,22 @@ The graph layer has two interchangeable backends behind one interface: Neo4j for
 
 The agent runs a fixed plan for each scenario: resolve the component, resolve the harm in the catalogue (which fixes severity), rate detectability and engineering probability from policy terms, search incidents, select the higher probability, score, check the verification status of each control, credit controls, score again and decide the disposition. Every step is written to an audit trail that is stored with the record.
 
-![Risk priority number before and after](docs/images/rpn_before_after.png)
+![Risk priority number before and after](rpn_before_after.png)
 
 Two decisions are kept apart on purpose.
 
 * **Acceptability** uses severity and probability only, because that is how ISO 14971 defines risk. Detectability cannot make an unacceptable risk acceptable.
 * **Prioritisation** uses all three ratings. The risk priority number is S x P x D, and a three dimensional lookup of 125 cells assigns an action priority, which avoids the well known problem that very different risks can share one risk priority number.
 
-![Action priority lookup](docs/images/action_priority_cube.png)
+![Action priority lookup](action_priority_cube.png)
 
 Control credit follows five rules that are enforced in code: no credit without passing verification, credit in the clause 7.1 priority order, limits by control type, a shared limit for information for safety, and limits by dimension. The full method with a worked example is in [docs/risk_methodology.md](docs/risk_methodology.md).
 
 ### Traceability matrix generator
 
-The matrix is produced by walking the graph, one row per risk item with 36 columns. Each row carries exact cross references in both regulatory directions: design specification references such as `SRS_003 section 4.1 (DFC_SW_02)` and `REQ_SW_005 at SRS_003 section 4.1`, and standard clause references such as `ISO 14971 cl 7.2` and `IEC 62304 cl 7.4`.
+The matrix is produced by walking the graph, one row per risk item with 36 columns. Each row carries exact cross references in both regulatory directions: design specification references such as `SRS_003 section 4.1 (DFD_SW_02)` and `REQ_SW_005 at SRS_003 section 4.1`, and standard clauses references such as `ISO 14971 cl 7.2` and `IEC 62304 cl 7.4`.
 
-![Traceability matrix extract](docs/images/traceability_matrix_preview.png)
+![Traceability matrix extract](traceability_matrix_preview.png)
 
 After the matrix is built, every link from component to requirement and verification record is walked forward and then backward. On the sample device 113 links were checked and none was broken.
 
@@ -127,7 +127,7 @@ LlamaIndex handles chunking, indexing and retrieval over a Qdrant collection tha
 <tr><td>Reference token support</td><td>0.925</td></tr>
 <tr><td rowspan="2">Incident matching on 39 scenarios against labelled problem codes</td><td>Macro precision</td><td>0.982</td></tr>
 <tr><td>Macro recall</td><td>0.810</td></tr>
-<tr><td>RAGAS (faithfulness, answer relevancy, context precision, context recall)</td><td colspan="2">Not run in the shipped results. These metrics need a judge model. See the limitations section.</td></tr>
+<tr><td>RAGAS (faithfulness, answer relevancy, context precision, context recall)</td><td colspan="2">Not run in the shipped results. These metrics need a judge model. See the limitations section below.</td></tr>
 </table>
 
 One golden question is missed by retrieval and is left in the set on purpose. The numbers are reported as measured.
@@ -223,7 +223,7 @@ The suite contains 115 tests. They cover the policy lookups for all 125 rating c
 These are stated plainly so that the scope of what has been demonstrated is clear.
 
 * **Verified here:** the whole pipeline in offline mode (in memory graph, in process Qdrant, hashing embedding, no language model), the installed command line tool, the API through the FastAPI test client, and 114 passing tests.
-* **Written but not executed in the build environment:** the Neo4j backend against a live server (one integration test exists and is skipped unless `AEGIS_TEST_NEO4J_URI` is set), the Docker image and compose stack, the continuous integration workflow, Qdrant in server mode, the sentence embedding backend, the openFDA downloader, and every path that calls a real language model, including RAGAS. The language model paths are tested with stub models and their imports were checked against the pinned versions.
+* **Written but not executed in the build environment:** the Neo4j backend against a live server (one integration test exists and is skipped unless `AEGIS_TEST_NEO4J_URI` is set), the Docker image and compose stack, the continuous integration workflow, Qdrant in server mode, the sentence embedding backend, the openFDA downloader, and every path that calls a real language model, including RAGAS.
 * **Synthetic field data.** The incident corpus is generated and its narratives are more regular than real reports. Matching quality on real data will be lower. Recall of 0.81 means field rates are understated even here.
 * **Lexical default embedding.** The hashing embedding matches on shared vocabulary. It was chosen for reproducibility and will miss paraphrases that a sentence embedding model would find.
 * **Structured input.** The deterministic extractor depends on the failure consideration block layout used in the sample documents. Free text design documents need the language model path and human review.
