@@ -1,0 +1,75 @@
+# Clause catalogue used for regulatory cross references.
+# Every summary is an original paraphrase written for this project and is not the text of the
+# standard. Consult the published standards for the normative wording. Standard designations
+# are written with spaces in place of the usual separator (for example IEC 62366 1).
+standards:
+  ISO 14971:
+    title: Medical devices. Application of risk management to medical devices
+    edition: "2019"
+    clauses:
+      "4.1": {topic: Risk management process, summary: The manufacturer keeps an ongoing process covering risk analysis, risk evaluation, risk control and production and post production activities for the whole device life cycle.}
+      "4.2": {topic: Management responsibilities, summary: Top management commits resources and defines the policy that sets criteria for risk acceptability.}
+      "4.3": {topic: Competence of personnel, summary: People who perform risk management tasks are competent through education, training, skills and experience.}
+      "4.4": {topic: Risk management plan, summary: A plan defines scope, responsibilities, review requirements, acceptability criteria, verification activities and collection of production and post production information.}
+      "4.5": {topic: Risk management file, summary: Records give traceability for each identified hazard to the risk analysis, the risk evaluation, the implementation and verification of risk controls and the evaluation of residual risk.}
+      "5.1": {topic: Risk analysis process, summary: Risk analysis is performed and documented for the particular device, including identification of the device, the people involved, the scope and the date.}
+      "5.2": {topic: Intended use and reasonably foreseeable misuse, summary: The intended use and the reasonably foreseeable misuse of the device are documented.}
+      "5.3": {topic: Identification of characteristics related to safety, summary: Qualitative and quantitative characteristics that could affect safety are identified with their limits.}
+      "5.4": {topic: Identification of hazards and hazardous situations, summary: Known and foreseeable hazards are identified together with the sequences of events that can produce hazardous situations in normal and fault conditions.}
+      "5.5": {topic: Risk estimation, summary: For each hazardous situation the associated risk is estimated from the severity of the possible harm and the probability of its occurrence using available information or data.}
+      "6": {topic: Risk evaluation, summary: Each estimated risk is compared with the acceptability criteria in the plan to decide whether risk control is required.}
+      "7.1": {topic: Risk control option analysis, summary: Control options are selected in priority order starting with inherently safe design, then protective measures, then information for safety.}
+      "7.2": {topic: Implementation of risk control measures, summary: Selected controls are implemented and both their implementation and their effectiveness are verified and recorded.}
+      "7.3": {topic: Residual risk evaluation, summary: After controls are applied the residual risk is evaluated against the acceptability criteria.}
+      "7.4": {topic: Benefit risk analysis, summary: Where a residual risk is not judged acceptable and further control is not practicable, data is reviewed to decide whether the benefits of the intended use outweigh that risk.}
+      "7.5": {topic: Risks arising from risk control measures, summary: The effects of controls are reviewed for new hazards or changes to previously estimated risks.}
+      "7.6": {topic: Completeness of risk control, summary: The manufacturer confirms that risks from all identified hazardous situations have been considered and that all control activities are complete.}
+      "8": {topic: Evaluation of overall residual risk, summary: The overall residual risk of the device is evaluated in relation to the benefits of its intended use and significant residual risks are disclosed.}
+      "9": {topic: Risk management review, summary: Before commercial release the execution of the plan is reviewed and the results are recorded in a risk management report.}
+      "10.1": {topic: Production and post production activities, summary: A system is established to actively collect and review information relevant to the device in production and post production phases.}
+      "10.2": {topic: Information collection, summary: Information is gathered from production, users, those accountable for installation and maintenance, the supply chain, public sources and the state of the art.}
+      "10.3": {topic: Information review, summary: Collected information is reviewed for relevance to safety, including previously unrecognised hazards and estimated risks that are no longer acceptable.}
+      "10.4": {topic: Actions, summary: Where collected information is relevant to safety the risk management file is reviewed and actions on devices and on the risk management process are considered.}
+  IEC 62304:
+    title: Medical device software. Software life cycle processes
+    edition: "2006 with Amendment 1 2015"
+    clauses:
+      "4.3": {topic: Software safety classification, summary: Each software system is assigned a safety class A, B or C according to the harm that could result from a hazardous situation to which the software contributes.}
+      "5.2": {topic: Software requirements analysis, summary: Software requirements are defined and documented, including risk control measures implemented in software.}
+      "7.1": {topic: Analysis of software contributing to hazardous situations, summary: Software items that could contribute to a hazardous situation are identified together with their potential causes.}
+      "7.2": {topic: Risk control measures, summary: Risk control measures are defined for each software cause of a hazardous situation and are included in the software requirements.}
+      "7.3": {topic: Verification of risk control measures, summary: Implementation of every software risk control measure is verified and the verification is documented with traceability to the hazardous situation.}
+      "7.4": {topic: Risk management of software changes, summary: Changes to software are analysed for new causes of hazardous situations and for interference with existing risk control measures.}
+  IEC 62366 1:
+    title: Medical devices. Application of usability engineering to medical devices
+    edition: "2015"
+    clauses:
+      "5.1": {topic: Prepare use specification, summary: The intended medical indication, patient population, users, use environment and operating principle are documented.}
+      "5.2": {topic: Identify user interface characteristics related to safety and potential use errors, summary: Characteristics of the user interface that relate to safety are identified together with possible use errors.}
+      "5.3": {topic: Identify known or foreseeable hazards and hazardous situations, summary: Hazards and hazardous situations that could affect patients, users or others through use of the device are identified.}
+      "5.4": {topic: Identify and describe hazard related use scenarios, summary: Reasonably foreseeable use scenarios that could lead to a hazardous situation are described, including the tasks and the severity of the associated harm.}
+      "5.9": {topic: Perform summative evaluation of the usability of the user interface, summary: A summative evaluation produces objective evidence that the user interface can be used safely for the selected hazard related use scenarios.}
+  ISO 13485:
+    title: Medical devices. Quality management systems. Requirements for regulatory purposes
+    edition: "2016"
+    clauses:
+      "7.3.3": {topic: Design and development inputs, summary: Inputs include functional, performance, usability and safety requirements together with applicable outputs of risk management.}
+      "7.3.6": {topic: Design and development verification, summary: Verification is performed according to planned arrangements to ensure that design outputs meet the design input requirements.}
+      "7.3.7": {topic: Design and development validation, summary: Validation confirms that the resulting product is capable of meeting the requirements for the specified application or intended use.}
+      "8.2.1": {topic: Feedback, summary: Information is gathered and monitored on whether customer requirements have been met, serving as an input to risk management.}
+  IEC 60601 1:
+    title: Medical electrical equipment. General requirements for basic safety and essential performance
+    edition: "3.2"
+    clauses:
+      "4.2": {topic: Risk management process for medical electrical equipment, summary: A risk management process complying with ISO 14971 is applied to the equipment.}
+      "8.5": {topic: Separation of parts, summary: Means of protection separate patient accessible parts from hazardous voltages.}
+      "9.3": {topic: Mechanical hazards associated with surfaces, corners and edges, summary: Rough surfaces, sharp corners and edges that could cause injury are avoided or covered.}
+      "11.1": {topic: Excessive temperatures, summary: Parts of the equipment do not reach temperatures that could cause harm in normal use or single fault condition.}
+      "11.6": {topic: Overflow, spillage, leakage and ingress of water or particulate matter, summary: Enclosures give the degree of protection against ingress that the intended use demands.}
+      "15.3": {topic: Mechanical strength, summary: The equipment withstands the mechanical stress of normal use including pushes, impacts, drops and rough handling.}
+  IEC 60601 1 8:
+    title: Medical electrical equipment. General requirements, tests and guidance for alarm systems
+    edition: "2.2"
+    clauses:
+      "6.1": {topic: Alarm condition, summary: Alarm conditions are determined through risk management and each is assigned a priority according to the potential harm and the time available to respond.}
+      "6.3": {topic: Generation of alarm signals, summary: Alarm signals are generated with visual and auditory characteristics that convey the assigned priority.}

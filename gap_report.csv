@@ -1,0 +1,24 @@
+Level,Rule,Subject,Clause,Finding
+BLOCKER,G4 control verification not passed,RCM_SW_03,ISO 14971 cl 7.2,"RCM_SW_03 for RISK_SW_02 has verification status FAIL, so no credit was given"
+BLOCKER,G6 unacceptable residual risk,RISK_SW_02,ISO 14971 cl 7.3,"RISK_SW_02 residual risk is UNACCEPTABLE (severity 4, probability 4)"
+MAJOR,G1 component without hazard analysis,CMP_ACC_01,ISO 14971 cl 5.4,"Component CMP_ACC_01 Belt Clip and Holster has no failure mode analysis, yet 260 similar incident reports exist in field data"
+MAJOR,G2 risk without control,RISK_SNS_03,ISO 14971 cl 7.1,RISK_SNS_03 is in the REVIEW region before control and has no risk control measure
+MAJOR,G3 control without verification record,RCM_IFU_02,ISO 14971 cl 7.2,"RCM_IFU_02 for RISK_RSV_01 has an implementing requirement with no verification record, so no credit was given"
+MAJOR,G4 control verification not passed,RCM_COM_02,ISO 14971 cl 7.2,"RCM_COM_02 for RISK_COM_01 has verification status PENDING, so no credit was given"
+MAJOR,G8 field data exceeds engineering estimate,RISK_INF_01,ISO 14971 cl 10.4,RISK_INF_01 engineering probability 3 was raised to 4 by 695 similar incident reports
+MAJOR,G8 field data exceeds engineering estimate,RISK_SW_05,ISO 14971 cl 10.4,RISK_SW_05 engineering probability 2 was raised to 3 by 52 similar incident reports
+ACTION,G7 benefit risk analysis required,RISK_CGM_01,ISO 14971 cl 7.4,"RISK_CGM_01 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_COM_01,ISO 14971 cl 7.4,"RISK_COM_01 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_COM_02,ISO 14971 cl 7.4,"RISK_COM_02 residual risk is in the REVIEW region (severity 4, probability 2)"
+ACTION,G7 benefit risk analysis required,RISK_COM_03,ISO 14971 cl 7.4,"RISK_COM_03 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_DRV_01,ISO 14971 cl 7.4,"RISK_DRV_01 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_DRV_03,ISO 14971 cl 7.4,"RISK_DRV_03 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_INF_01,ISO 14971 cl 7.4,"RISK_INF_01 residual risk is in the REVIEW region (severity 4, probability 2)"
+ACTION,G7 benefit risk analysis required,RISK_MCU_02,ISO 14971 cl 7.4,"RISK_MCU_02 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_MCU_03,ISO 14971 cl 7.4,"RISK_MCU_03 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_SNS_03,ISO 14971 cl 7.4,"RISK_SNS_03 residual risk is in the REVIEW region (severity 2, probability 4)"
+ACTION,G7 benefit risk analysis required,RISK_SNS_04,ISO 14971 cl 7.4,"RISK_SNS_04 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_SW_01,ISO 14971 cl 7.4,"RISK_SW_01 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_SW_05,ISO 14971 cl 7.4,"RISK_SW_05 residual risk is in the REVIEW region (severity 4, probability 2)"
+ACTION,G7 benefit risk analysis required,RISK_UI_01,ISO 14971 cl 7.4,"RISK_UI_01 residual risk is in the REVIEW region (severity 5, probability 1)"
+ACTION,G7 benefit risk analysis required,RISK_UI_02,ISO 14971 cl 7.4,"RISK_UI_02 residual risk is in the REVIEW region (severity 5, probability 1)"

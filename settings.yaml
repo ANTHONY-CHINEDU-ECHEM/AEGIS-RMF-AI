@@ -1,0 +1,39 @@
+# Aegis RMF AI runtime settings. Every value can be overridden by an environment variable
+# named AEGIS_ followed by the upper case key, for example AEGIS_GRAPH_BACKEND=neo4j.
+device_name: Aurelia P200 Ambulatory Insulin Infusion Pump
+
+design_docs_dir: data/design_docs
+incidents_path: data/incidents/synthetic_adverse_events.jsonl
+evaluation_dir: data/evaluation
+output_dir: outputs
+risk_policy_path: configs/risk_policy.yaml
+harm_catalogue_path: configs/harm_catalogue.yaml
+standards_catalogue_path: configs/standards_catalogue.yaml
+
+# Graph store. Use memory for offline runs and tests, neo4j for the production graph.
+graph_backend: memory
+neo4j_uri: bolt://localhost:7687
+neo4j_user: neo4j
+neo4j_password: aegis_password
+neo4j_database: neo4j
+
+# Vector store. Leave both empty for an in process Qdrant instance.
+qdrant_url: ""
+qdrant_path: ""
+qdrant_collection: aegis_knowledge
+
+# Embeddings. hashing is a deterministic offline lexical embedding with no model download.
+# huggingface loads a sentence embedding model through LlamaIndex and needs the optional extra.
+embedding_backend: hashing
+embedding_model: BAAI/bge-small-en-v1.5
+embedding_dim: 1024
+similarity_threshold: 0.30
+
+# Language model. none keeps the whole pipeline deterministic and offline.
+llm_provider: none
+llm_model: ""
+
+chunk_size: 320
+chunk_overlap: 40
+retrieval_top_k: 6
+incident_limit: 0

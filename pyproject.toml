@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aegis_rmf_ai"
+version = "1.0.0"
+description = "Automated ISO 14971 risk analysis engine with an FMEA knowledge graph, deterministic risk scoring and a traceability matrix generator"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "llama_index_core>=0.14,<0.15",
+    "llama_index_vector_stores_qdrant>=0.10,<0.11",
+    "qdrant_client>=1.15,<2",
+    "neo4j>=5.20,<7",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "pydantic>=2.7,<3",
+    "pyyaml>=6",
+    "numpy>=1.26",
+    "networkx>=3.2",
+    "openpyxl>=3.1",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+llm = [
+    "llama_index_llms_anthropic>=0.12",
+    "llama_index_llms_openai>=0.8",
+    "ragas==0.4.3",
+    "langchain_community>=0.3,<0.4",
+    "langchain_openai>=0.3,<1.0",
+]
+semantic = ["llama_index_embeddings_huggingface>=0.6"]
+dev = ["pytest>=8", "httpx>=0.27", "ruff>=0.6"]
+
+[project.scripts]
+aegis = "aegis_rmf.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"aegis_rmf.graph" = ["cypher/*.cypher"]
+
+[tool.ruff]
+line-length = 170
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E741"]

@@ -1,0 +1,92 @@
+{
+  "generated": "Generated on 04 October 2026 by Aegis RMF AI 1.0.0",
+  "summary": {
+    "device": "Aurelia P200 Ambulatory Insulin Infusion Pump",
+    "documents": 6,
+    "components": 23,
+    "requirements": 58,
+    "verification_records": 57,
+    "incident_reports": 10024,
+    "risks": 39,
+    "regions_before_control": {
+      "ACCEPTABLE": 4,
+      "REVIEW": 28,
+      "UNACCEPTABLE": 7
+    },
+    "regions_after_control": {
+      "ACCEPTABLE": 23,
+      "REVIEW": 15,
+      "UNACCEPTABLE": 1
+    },
+    "total_rpn_before_control": 1919,
+    "total_rpn_after_control": 703,
+    "total_rpn_reduction_pct": 63.4,
+    "field_evidence_escalations": [
+      "RISK_INF_01",
+      "RISK_SW_05"
+    ],
+    "gaps_by_level": {
+      "ACTION": 15,
+      "BLOCKER": 2,
+      "MAJOR": 6
+    },
+    "traceability_links_checked": 113,
+    "traceability_bidirectional": true,
+    "extraction_issues": 0,
+    "graph_backend": "memory",
+    "embedding_backend": "hashing",
+    "llm_provider": "none"
+  },
+  "graph": {
+    "nodes": {
+      "Component": 23,
+      "ControlMeasure": 53,
+      "DocumentSection": 73,
+      "FailureMode": 39,
+      "Harm": 9,
+      "Hazard": 11,
+      "HazardousSituation": 39,
+      "Incident": 191,
+      "Requirement": 58,
+      "RiskItem": 39,
+      "StandardClause": 46,
+      "Verification": 57
+    },
+    "relationships": {
+      "ASSESSED_AS": 39,
+      "CITES": 73,
+      "COMPLIES_WITH": 64,
+      "CONTROLLED_BY": 54,
+      "DOCUMENTED_IN": 120,
+      "FOR_HARM": 39,
+      "GOVERNED_BY": 287,
+      "HAS_FAILURE_MODE": 39,
+      "HAS_REQUIREMENT": 58,
+      "IMPLEMENTED_BY": 56,
+      "INVOLVES_HAZARD": 39,
+      "LEADS_TO": 39,
+      "RESULTS_IN": 39,
+      "SUPPORTED_BY": 191,
+      "VERIFIED_BY": 57
+    }
+  },
+  "vector_index": {
+    "design_doc": 118,
+    "standard": 46,
+    "incident": 10024,
+    "risk_record": 39
+  },
+  "timings_seconds": {
+    "ingest": 0.26,
+    "index": 8.99,
+    "extract_and_score": 14.1,
+    "graph": 0.01,
+    "traceability": 0.18
+  },
+  "graph_warnings": [],
+  "extraction_issues": [],
+  "policy": {
+    "id": "RAP_001",
+    "revision": "C"
+  }
+}

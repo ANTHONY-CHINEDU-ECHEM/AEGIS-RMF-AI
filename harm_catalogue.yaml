@@ -1,0 +1,39 @@
+# Canonical harms with fixed severity ratings. Severity is a property of the harm and is never
+# assigned by a language model. Aliases are matched as lower case substrings of extracted harm text.
+harms:
+  HARM_HYPO_SEVERE:
+    name: Severe hypoglycemia with seizure, loss of consciousness or death
+    severity: 5
+    aliases: [severe hypoglycemia, loss of consciousness, hypoglycemic seizure, hypoglycemic coma]
+  HARM_HYPO_MODERATE:
+    name: Moderate hypoglycemia requiring assistance from another person
+    severity: 4
+    aliases: [moderate hypoglycemia, hypoglycemia requiring assistance]
+  HARM_DKA:
+    name: Hyperglycemia progressing to diabetic ketoacidosis
+    severity: 4
+    aliases: [diabetic ketoacidosis, ketoacidosis]
+  HARM_HYPER_SERIOUS:
+    name: Sustained hyperglycemia requiring medical intervention
+    severity: 3
+    aliases: [sustained hyperglycemia, hyperglycemia requiring medical intervention]
+  HARM_HYPER_MILD:
+    name: Transient hyperglycemia correctable by the user
+    severity: 2
+    aliases: [transient hyperglycemia, mild hyperglycemia]
+  HARM_INFECTION:
+    name: Infusion site infection
+    severity: 3
+    aliases: [infusion site infection, site infection, cellulitis]
+  HARM_BURN:
+    name: Skin burn
+    severity: 3
+    aliases: [skin burn, thermal burn]
+  HARM_SHOCK:
+    name: Electric shock
+    severity: 4
+    aliases: [electric shock]
+  HARM_LACERATION:
+    name: Minor skin laceration or irritation
+    severity: 1
+    aliases: [skin laceration, skin irritation, minor laceration]

@@ -1,0 +1,492 @@
+{
+  "retrieval": {
+    "questions": 26,
+    "top_k": 6,
+    "hit_rate": 0.962,
+    "mean_reciprocal_rank": 0.812,
+    "reference_recall": 0.962,
+    "reference_token_support": 0.925,
+    "per_question": [
+      {
+        "id": "GQ_01",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_02",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_03",
+        "first_relevant_rank": 2,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.909
+      },
+      {
+        "id": "GQ_04",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.867
+      },
+      {
+        "id": "GQ_05",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.909
+      },
+      {
+        "id": "GQ_06",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_07",
+        "first_relevant_rank": 6,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_08",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_09",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.923
+      },
+      {
+        "id": "GQ_10",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.938
+      },
+      {
+        "id": "GQ_11",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_12",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.889
+      },
+      {
+        "id": "GQ_13",
+        "first_relevant_rank": 2,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_14",
+        "first_relevant_rank": 4,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_15",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_16",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_17",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_18",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.882
+      },
+      {
+        "id": "GQ_19",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.933
+      },
+      {
+        "id": "GQ_20",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.9
+      },
+      {
+        "id": "GQ_21",
+        "first_relevant_rank": null,
+        "reference_recall": 0.0,
+        "reference_token_support": 0.071
+      },
+      {
+        "id": "GQ_22",
+        "first_relevant_rank": 2,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_23",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_24",
+        "first_relevant_rank": 5,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_25",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 1.0
+      },
+      {
+        "id": "GQ_26",
+        "first_relevant_rank": 1,
+        "reference_recall": 1.0,
+        "reference_token_support": 0.818
+      }
+    ]
+  },
+  "incident_matching": {
+    "scenarios": 39,
+    "similarity_threshold": 0.3,
+    "macro_precision": 0.982,
+    "macro_recall": 0.81,
+    "per_scenario": [
+      {
+        "dfc_id": "DFC_DRV_01",
+        "problem_code": "PP_MOTOR_RUNAWAY",
+        "matched": 10,
+        "labelled": 18,
+        "precision": 1.0,
+        "recall": 0.556
+      },
+      {
+        "dfc_id": "DFC_DRV_02",
+        "problem_code": "PP_MOTOR_STALL",
+        "matched": 83,
+        "labelled": 240,
+        "precision": 1.0,
+        "recall": 0.346
+      },
+      {
+        "dfc_id": "DFC_DRV_03",
+        "problem_code": "PP_COUPLING_DISENGAGE",
+        "matched": 14,
+        "labelled": 14,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_DRV_04",
+        "problem_code": "PP_DOSE_INACCURACY",
+        "matched": 139,
+        "labelled": 210,
+        "precision": 1.0,
+        "recall": 0.662
+      },
+      {
+        "dfc_id": "DFC_SNS_01",
+        "problem_code": "PP_OCCLUSION_UNDETECTED",
+        "matched": 127,
+        "labelled": 260,
+        "precision": 1.0,
+        "recall": 0.488
+      },
+      {
+        "dfc_id": "DFC_SNS_02",
+        "problem_code": "PP_OCCLUSION_RELEASE_BOLUS",
+        "matched": 130,
+        "labelled": 130,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_SNS_03",
+        "problem_code": "PP_FALSE_OCCLUSION_ALARM",
+        "matched": 599,
+        "labelled": 820,
+        "precision": 0.91,
+        "recall": 0.665
+      },
+      {
+        "dfc_id": "DFC_SNS_04",
+        "problem_code": "PP_ENCODER_FAULT",
+        "matched": 18,
+        "labelled": 20,
+        "precision": 1.0,
+        "recall": 0.9
+      },
+      {
+        "dfc_id": "DFC_RSV_01",
+        "problem_code": "PP_RESERVOIR_LEAK",
+        "matched": 330,
+        "labelled": 330,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_RSV_02",
+        "problem_code": "PP_AIR_IN_LINE",
+        "matched": 760,
+        "labelled": 760,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_RSV_03",
+        "problem_code": "PP_STERILITY_BREACH",
+        "matched": 14,
+        "labelled": 16,
+        "precision": 1.0,
+        "recall": 0.875
+      },
+      {
+        "dfc_id": "DFC_INF_01",
+        "problem_code": "PP_CONNECTOR_DETACH",
+        "matched": 695,
+        "labelled": 700,
+        "precision": 1.0,
+        "recall": 0.993
+      },
+      {
+        "dfc_id": "DFC_PWR_01",
+        "problem_code": "PP_BATTERY_OVERHEAT",
+        "matched": 13,
+        "labelled": 22,
+        "precision": 1.0,
+        "recall": 0.591
+      },
+      {
+        "dfc_id": "DFC_PWR_02",
+        "problem_code": "PP_BATTERY_SUDDEN_DEPLETION",
+        "matched": 245,
+        "labelled": 310,
+        "precision": 1.0,
+        "recall": 0.79
+      },
+      {
+        "dfc_id": "DFC_PWR_03",
+        "problem_code": "PP_FUEL_GAUGE_ERROR",
+        "matched": 180,
+        "labelled": 180,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_CHG_01",
+        "problem_code": "PP_CHARGER_SHOCK",
+        "matched": 4,
+        "labelled": 6,
+        "precision": 1.0,
+        "recall": 0.667
+      },
+      {
+        "dfc_id": "DFC_ALM_01",
+        "problem_code": "PP_SPEAKER_FAILURE",
+        "matched": 150,
+        "labelled": 150,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_ALM_02",
+        "problem_code": "PP_ALARM_NOT_HEARD",
+        "matched": 563,
+        "labelled": 640,
+        "precision": 0.854,
+        "recall": 0.752
+      },
+      {
+        "dfc_id": "DFC_ENC_01",
+        "problem_code": "PP_WATER_INGRESS",
+        "matched": 196,
+        "labelled": 280,
+        "precision": 1.0,
+        "recall": 0.7
+      },
+      {
+        "dfc_id": "DFC_ENC_02",
+        "problem_code": "PP_CRACKED_CASE",
+        "matched": 35,
+        "labelled": 35,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_MCU_01",
+        "problem_code": "PP_FIRMWARE_HANG",
+        "matched": 75,
+        "labelled": 200,
+        "precision": 1.0,
+        "recall": 0.375
+      },
+      {
+        "dfc_id": "DFC_MCU_02",
+        "problem_code": "PP_RATE_CORRUPTION",
+        "matched": 9,
+        "labelled": 9,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_MCU_03",
+        "problem_code": "PP_SUPERVISOR_FAULT",
+        "matched": 3,
+        "labelled": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_SW_01",
+        "problem_code": "PP_BOLUS_CALC_ERROR",
+        "matched": 97,
+        "labelled": 90,
+        "precision": 0.928,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_SW_02",
+        "problem_code": "PP_IOB_STACKING",
+        "matched": 398,
+        "labelled": 560,
+        "precision": 1.0,
+        "recall": 0.711
+      },
+      {
+        "dfc_id": "DFC_SW_03",
+        "problem_code": "PP_SCHEDULE_TIME_SHIFT",
+        "matched": 153,
+        "labelled": 140,
+        "precision": 0.915,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_SW_04",
+        "problem_code": "PP_SUSPEND_NOT_RESUMED",
+        "matched": 200,
+        "labelled": 230,
+        "precision": 0.94,
+        "recall": 0.817
+      },
+      {
+        "dfc_id": "DFC_SW_05",
+        "problem_code": "PP_DOUBLE_BOLUS",
+        "matched": 52,
+        "labelled": 120,
+        "precision": 1.0,
+        "recall": 0.433
+      },
+      {
+        "dfc_id": "DFC_SW_06",
+        "problem_code": "PP_ALARM_SUPPRESSED",
+        "matched": 15,
+        "labelled": 15,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_MEM_01",
+        "problem_code": "PP_SETTINGS_RESET",
+        "matched": 81,
+        "labelled": 190,
+        "precision": 1.0,
+        "recall": 0.426
+      },
+      {
+        "dfc_id": "DFC_RTC_01",
+        "problem_code": "PP_CLOCK_RESET",
+        "matched": 535,
+        "labelled": 600,
+        "precision": 0.77,
+        "recall": 0.687
+      },
+      {
+        "dfc_id": "DFC_UI_01",
+        "problem_code": "PP_UNINTENDED_KEYPRESS",
+        "matched": 110,
+        "labelled": 110,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_UI_02",
+        "problem_code": "PP_DOSE_ENTRY_ERROR",
+        "matched": 166,
+        "labelled": 170,
+        "precision": 1.0,
+        "recall": 0.976
+      },
+      {
+        "dfc_id": "DFC_UI_03",
+        "problem_code": "PP_DISPLAY_FAILURE",
+        "matched": 133,
+        "labelled": 270,
+        "precision": 1.0,
+        "recall": 0.493
+      },
+      {
+        "dfc_id": "DFC_COM_01",
+        "problem_code": "PP_UNAUTHORIZED_COMMAND",
+        "matched": 4,
+        "labelled": 4,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_COM_02",
+        "problem_code": "PP_CONNECTIVITY_LOSS",
+        "matched": 558,
+        "labelled": 720,
+        "precision": 1.0,
+        "recall": 0.775
+      },
+      {
+        "dfc_id": "DFC_COM_03",
+        "problem_code": "PP_CORRUPT_DATA",
+        "matched": 12,
+        "labelled": 12,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_CGM_01",
+        "problem_code": "PP_CGM_FALSE_HIGH",
+        "matched": 100,
+        "labelled": 100,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "dfc_id": "DFC_LBL_01",
+        "problem_code": "PP_SET_OVERWEAR",
+        "matched": 495,
+        "labelled": 540,
+        "precision": 1.0,
+        "recall": 0.917
+      }
+    ]
+  },
+  "ragas": {
+    "status": "skipped",
+    "reason": "No language model configured. RAGAS metrics need a judge model."
+  }
+}

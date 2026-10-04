@@ -1,0 +1,81 @@
+# Aegis RMF AI risk acceptability policy.
+# Illustrative criteria for the fictional Aurelia P200 programme. A manufacturer must define
+# and justify its own criteria under ISO 14971:2019 clauses 4.2 and 4.4 before any real use.
+policy:
+  id: RAP_001
+  title: Risk Acceptability Policy for the Aurelia P200 Insulin Infusion Pump
+  revision: C
+  basis: [ISO 14971 cl 4.2, ISO 14971 cl 4.4]
+
+severity:
+  1: {label: Negligible, definition: Inconvenience or temporary discomfort with no medical intervention}
+  2: {label: Minor, definition: Temporary injury or impairment that the user can correct without professional help}
+  3: {label: Serious, definition: Injury or impairment requiring professional medical intervention}
+  4: {label: Critical, definition: Permanent impairment or life threatening injury requiring urgent care}
+  5: {label: Catastrophic, definition: Patient death or irreversible life altering injury}
+
+# Probability of occurrence of harm. Rate bounds are incidents per 100000 device years of field exposure.
+probability:
+  1: {label: Improbable, rate_upper_bound: 0.5}
+  2: {label: Remote, rate_upper_bound: 5.0}
+  3: {label: Occasional, rate_upper_bound: 50.0}
+  4: {label: Probable, rate_upper_bound: 500.0}
+  5: {label: Frequent, rate_upper_bound: null}
+
+# Detectability before harm occurs. A higher rating means the failure is harder to detect.
+detectability:
+  1: {label: Almost certain, method: Continuous monitoring with automatic safe state}
+  2: {label: High, method: Continuous monitoring with alarm}
+  3: {label: Moderate, method: Periodic self test}
+  4: {label: Low, method: User observation}
+  5: {label: Undetectable, method: No detection}
+
+# Rows are severity 1 to 5. Columns are probability 1 to 5.
+# A is ACCEPTABLE, R is REVIEW (reduce further or justify by benefit risk analysis), U is UNACCEPTABLE.
+acceptability_matrix:
+  1: [A, A, A, A, R]
+  2: [A, A, A, R, R]
+  3: [A, A, R, R, U]
+  4: [A, R, R, U, U]
+  5: [R, R, U, U, U]
+
+rpn_bands: {low_max: 20, medium_max: 60}
+
+# Three dimensional action priority lookup. Each rule is a lower bound on severity (s),
+# probability (p) and detectability (d). Rules are evaluated in order and the first match wins.
+# Because every rule is an upper set, the materialised 5 x 5 x 5 tensor is monotone by construction.
+action_priority_rules:
+  [
+    {s: 5, p: 2, d: 1, priority: HIGH},
+    {s: 4, p: 3, d: 1, priority: HIGH},
+    {s: 4, p: 2, d: 3, priority: HIGH},
+    {s: 3, p: 4, d: 1, priority: HIGH},
+    {s: 3, p: 3, d: 4, priority: HIGH},
+    {s: 2, p: 5, d: 3, priority: HIGH},
+    {s: 5, p: 1, d: 1, priority: MEDIUM},
+    {s: 4, p: 2, d: 1, priority: MEDIUM},
+    {s: 4, p: 1, d: 3, priority: MEDIUM},
+    {s: 3, p: 3, d: 1, priority: MEDIUM},
+    {s: 3, p: 2, d: 3, priority: MEDIUM},
+    {s: 2, p: 4, d: 1, priority: MEDIUM},
+    {s: 2, p: 3, d: 4, priority: MEDIUM},
+    {s: 1, p: 5, d: 4, priority: MEDIUM},
+  ]
+action_priority_default: LOW
+
+# Credit rules for risk control measures, following the ISO 14971 clause 7.1 priority order.
+# Values are the maximum number of rating levels a single control of that type may remove.
+control_credit:
+  require_verification: true
+  per_control_max:
+    inherent_safety_by_design: {severity: 2, occurrence: 3, detectability: 2}
+    protective_measure: {severity: 0, occurrence: 2, detectability: 3}
+    information_for_safety: {severity: 0, occurrence: 1, detectability: 1}
+  information_for_safety_total_cap: 1
+  dimension_caps: {severity: 2, occurrence: 3, detectability: 3}
+
+# Field evidence taken from the historical incident corpus through vector search.
+field_evidence:
+  exposure_device_years: 1000000
+  similarity_threshold: 0.30
+  evidence_top_k: 5

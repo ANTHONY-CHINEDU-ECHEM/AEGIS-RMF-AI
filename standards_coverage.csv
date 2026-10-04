@@ -1,0 +1,47 @@
+Standard,Clause,Topic,Risk items,Requirements,Document sections,Status
+IEC 60601 1,4.2,Risk management process for medical electrical equipment,0,5,HDS_002 section 3.1; HDS_002 section 4.1; HDS_002 section 6.2; HDS_002 section 7.2; SRS_003 section 3.2,Evidenced
+IEC 60601 1,8.5,Separation of parts,0,1,HDS_002 section 6.3,Evidenced
+IEC 60601 1,9.3,Mechanical hazards associated with surfaces,0,1,HDS_002 section 7.2,Evidenced
+IEC 60601 1,11.1,Excessive temperatures,0,1,HDS_002 section 6.1,Evidenced
+IEC 60601 1,11.6,Overflow,0,1,HDS_002 section 7.2,Evidenced
+IEC 60601 1,15.3,Mechanical strength,0,1,HDS_002 section 7.2,Evidenced
+IEC 60601 1 8,6.1,Alarm condition,0,6,HDS_002 section 3.1; HDS_002 section 4.1; HDS_002 section 6.2; SRS_003 section 4.2; SRS_003 section 4.3,Evidenced
+IEC 60601 1 8,6.3,Generation of alarm signals,0,3,HDS_002 section 7.1; UCS_004 section 3.1,Evidenced
+IEC 62304,4.3,Software safety classification,0,0,SAS_001 section 5; SRS_003 section 3.1; SRS_003 section 3.2; SRS_003 section 4.1; SRS_003 section 4.2; SRS_003 section 4.3; SRS_003 section 5.1; SRS_003 section 5.2; UCS_004 section 4.1; UCS_004 section 4.2,Evidenced
+IEC 62304,5.2,Software requirements analysis,0,1,SRS_003 section 4.1,Evidenced
+IEC 62304,7.1,Analysis of software contributing to hazardous situations,0,0,SRS_003 section 1,Evidenced
+IEC 62304,7.2,Risk control measures,0,21,HDS_002 section 3.1; HDS_002 section 4.2; SRS_003 section 3.1; SRS_003 section 3.2; SRS_003 section 4.1; SRS_003 section 4.2; SRS_003 section 4.3; SRS_003 section 5.1; SRS_003 section 5.2; UCS_004 section 4.1; UCS_004 section 4.2,Evidenced
+IEC 62304,7.3,Verification of risk control measures,0,0,,No evidence in file
+IEC 62304,7.4,Risk management of software changes,0,1,SRS_003 section 4.1,Evidenced
+IEC 62366 1,5.1,Prepare use specification,0,0,,No evidence in file
+IEC 62366 1,5.2,Identify user interface characteristics related to safety and potential use errors,0,1,HDS_002 section 5.2,Evidenced
+IEC 62366 1,5.3,Identify known or foreseeable hazards and hazardous situations,0,0,,No evidence in file
+IEC 62366 1,5.4,Identify and describe hazard related use scenarios,0,6,HDS_002 section 5.1; SRS_003 section 4.1; UCS_004 section 1; UCS_004 section 3.1; UCS_004 section 4.1; UCS_004 section 5.1,Evidenced
+IEC 62366 1,5.9,Perform summative evaluation of the usability of the user interface,0,8,UCS_004 section 3.1; UCS_004 section 5.1,Evidenced
+ISO 13485,7.3.3,Design and development inputs,0,6,HDS_002 section 3.2; HDS_002 section 5.1; HDS_002 section 6.1; HDS_002 section 6.2,Evidenced
+ISO 13485,7.3.6,Design and development verification,0,0,VVR_005 section 1,Evidenced
+ISO 13485,7.3.7,Design and development validation,0,1,UCS_004 section 5.1,Evidenced
+ISO 13485,8.2.1,Feedback,0,0,,No evidence in file
+ISO 14971,4.1,Risk management process,0,0,,No evidence in file
+ISO 14971,4.2,Management responsibilities,0,0,,No evidence in file
+ISO 14971,4.3,Competence of personnel,0,0,,No evidence in file
+ISO 14971,4.4,Risk management plan,0,0,RMP_006 section 1,Evidenced
+ISO 14971,4.5,Risk management file,0,0,,No evidence in file
+ISO 14971,5.1,Risk analysis process,0,0,SAS_001 section 1,Evidenced
+ISO 14971,5.2,Intended use and reasonably foreseeable misuse,0,0,SAS_001 section 2,Evidenced
+ISO 14971,5.3,Identification of characteristics related to safety,0,0,SAS_001 section 3,Evidenced
+ISO 14971,5.4,Identification of hazards and hazardous situations,39,0,,Evidenced
+ISO 14971,5.5,Risk estimation,39,0,,Evidenced
+ISO 14971,6,Risk evaluation,39,0,,Evidenced
+ISO 14971,7.1,Risk control option analysis,38,0,HDS_002 section 2; RMP_006 section 5; SAS_001 section 5; SRS_003 section 2; UCS_004 section 2,Evidenced
+ISO 14971,7.2,Implementation of risk control measures,38,0,VVR_005 section 1,Evidenced
+ISO 14971,7.3,Residual risk evaluation,38,0,,Evidenced
+ISO 14971,7.4,Benefit risk analysis,15,0,RMP_006 section 3,Evidenced
+ISO 14971,7.5,Risks arising from risk control measures,0,0,RMP_006 section 5,Evidenced
+ISO 14971,7.6,Completeness of risk control,0,0,,No evidence in file
+ISO 14971,8,Evaluation of overall residual risk,0,0,RMP_006 section 6,Evidenced
+ISO 14971,9,Risk management review,0,0,RMP_006 section 6,Evidenced
+ISO 14971,10.1,Production and post production activities,0,0,,No evidence in file
+ISO 14971,10.2,Information collection,0,0,RMP_006 section 7,Evidenced
+ISO 14971,10.3,Information review,39,0,RMP_006 section 7,Evidenced
+ISO 14971,10.4,Actions,2,0,RMP_006 section 7,Evidenced
