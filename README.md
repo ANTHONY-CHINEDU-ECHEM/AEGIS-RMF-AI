@@ -2,9 +2,67 @@
 
 **Automated Medical Device ISO 14971 Risk Analysis Engine**
 
-An end to end retrieval augmented system that reads medical device design documents, builds an FMEA knowledge graph, scores every risk before and after mitigation with deterministic policy lookups, grounds probability estimates in historical incident data, and generates a fully traceable ISO 14971 risk management file.
+Aegis RMF AI is a retrieval augmented risk management platform that converts device design documentation, adverse event data and organisational risk catalogues into a fully traceable risk management file. The system follows the causal chain used in medical device risk management (ISO 14971): **component → failure mode → hazardous situation → harm → risk control**.
 
-![Architecture](architecture.png)
+
+```mermaid
+flowchart LR
+    subgraph SRC["1. Source Layer"]
+        DD["Design Documents<br/>Architecture, hardware, software,<br/>usability, verification, plan"]
+        IC["Incident Corpus<br/>Adverse event reports<br/>(synthetic corpus)"]
+        CAT["Catalogues<br/>Risk policy, harm catalogue,<br/>standard clauses"]
+    end
+
+    subgraph ING["2. Ingestion and Indexing Layer"]
+        IN["Ingestion<br/>LlamaIndex parsing and chunking<br/>with exact section references"]
+        QD["Qdrant Vector Index<br/>Design text, clauses,<br/>incidents, risk records"]
+    end
+
+    subgraph ANL["3. Analysis Layer"]
+        SE["Scenario Extraction<br/>Rule based parser<br/>Optional LLM proposals<br/>held for human review"]
+        RS["Risk Scoring Agent<br/>Policy lookups only<br/>S x P x D, RPN, region,<br/>control credit, audit trail"]
+    end
+
+    subgraph KNW["4. Knowledge Layer"]
+        NG["Neo4j Graph<br/>Component → Failure mode →<br/>Hazardous situation → Harm → Control"]
+    end
+
+    subgraph DLV["5. Delivery Layer"]
+        MX["Risk Matrix<br/>CSV, Excel, HTML"]
+        GR["Gap Report<br/>Audit findings"]
+        API["FastAPI Service<br/>Trace, score, ask"]
+        EV["Evaluation<br/>Retrieval metrics and RAGAS"]
+    end
+
+    DD ==> IN
+    IC ==> QD
+    CAT ==> QD
+    IN ==> SE
+    IN ==> QD
+    SE ==> RS
+    QD ==> RS
+    RS ==> NG
+    NG ==> MX
+    NG ==> GR
+    NG ==> API
+    NG ==> EV
+
+    classDef source fill:#5B6B8A,color:#FFFFFF,stroke:#3E4A61
+    classDef process fill:#1F3864,color:#FFFFFF,stroke:#13233F
+    classDef store fill:#2E75B6,color:#FFFFFF,stroke:#1D4F7C
+    classDef agent fill:#C0504D,color:#FFFFFF,stroke:#8A3533
+    classDef kgraph fill:#548235,color:#FFFFFF,stroke:#385723
+    classDef output fill:#7030A0,color:#FFFFFF,stroke:#4B1F6B
+
+    class DD,IC,CAT source
+    class IN,SE process
+    class QD store
+    class RS agent
+    class NG kgraph
+    class MX,GR,API,EV output
+```
+
+
 
 ## Project brief
 
